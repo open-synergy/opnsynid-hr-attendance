@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_contract_multiple_working_schedule_employee,hr.contract_multiple_working_schedule - Employee,model_hr_contract_multiple_working_schedule,base.group_hr_user,1,1,1,1
+access_hr_contract_multiple_working_schedule_all,hr.contract_multiple_working_schedule - All,model_hr_contract_multiple_working_schedule,,1,0,0,0
+access_hr_working_schedule_policy_employee,hr.working_schedule_policy - Employee,model_hr_working_schedule_policy,base.group_hr_user,1,1,1,1
+access_hr_working_schedule_policy_all,hr.working_schedule_policy - All,model_hr_working_schedule_policy,,1,0,0,0
