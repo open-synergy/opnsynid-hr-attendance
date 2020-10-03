@@ -8,7 +8,7 @@ from openerp.exceptions import Warning as UserError
 from openerp.tools.safe_eval import safe_eval as eval
 from datetime import datetime
 from pytz import timezone
-from dateutil.relativedelta import relativedelta
+from dateutil import relativedelta
 
 
 class HrWorkingSchedulePolicy(models.Model):
