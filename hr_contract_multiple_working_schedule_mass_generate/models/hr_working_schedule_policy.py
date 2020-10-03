@@ -128,7 +128,7 @@ class HrWorkingSchedulePolicy(models.Model):
             "name": name,
             "user_id": self.env.user.id,
             "active": False,
-            "model": "ir.sequence",
+            "model": "hr.working_schedule_policy",
             "function": "_cron_generate_timesheet",
             "args": args,
         })
