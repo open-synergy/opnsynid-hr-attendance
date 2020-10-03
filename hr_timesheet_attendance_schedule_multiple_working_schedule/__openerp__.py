@@ -6,7 +6,7 @@
 {
     "name": "Timesheet Attendance Schedule Integration With "
             "Contract Multiple Working Schedule",
-    "version": "8.0.1.0.1",
+    "version": "8.0.1.0.2",
     "category": "Human Resource",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",

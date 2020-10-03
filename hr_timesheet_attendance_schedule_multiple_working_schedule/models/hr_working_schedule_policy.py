@@ -11,9 +11,9 @@ class HrWorkingSchedulePolicy(models.Model):
     _inherit = "hr.working_schedule_policy"
 
     @api.multi
-    def _prapare_timesheet_create(self, employee):
+    def _prepare_timesheet_create(self, employee, date_start):
         _super = super(HrWorkingSchedulePolicy, self)
-        result = _super._prapare_timesheet_create(employee)
+        result = _super._prepare_timesheet_create(employee, date_start)
         obj_schedule = self.env["hr.contract_multiple_working_schedule"]
         criteria = [
             ("contract_id", "=", employee.current_contract_id.id),
