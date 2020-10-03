@@ -7,4 +7,5 @@ from . import (
     hr_contract,
     hr_contract_multiple_working_schedule,
     hr_working_schedule_policy,
+    hr_employee,
 )
