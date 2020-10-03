@@ -15,6 +15,10 @@ class HrWorkingSchedulePolicy(models.Model):
     _name = "hr.working_schedule_policy"
     _inherit = "hr.working_schedule_policy"
 
+    @api.model
+    def _default_condition_python_code(self):
+        return "result = True"
+
     timesheet_period_computation_method = fields.Selection(
         string="Timesheet Period Computation Method",
         selection=[
@@ -24,11 +28,15 @@ class HrWorkingSchedulePolicy(models.Model):
         required=True,
     )
     python_code = fields.Text(
-        string="Python Code",
+        string="Python Code for Date To Computation",
     )
     cron_id = fields.Many2one(
         string="Cron",
         comodel_name="ir.cron",
+    )
+    condition_python_code = fields.Text(
+        string="Python Code for Timesheet Creation Condition",
+        default=lambda self: self._default_condition_python_code(),
     )
 
     @api.model
@@ -48,15 +56,17 @@ class HrWorkingSchedulePolicy(models.Model):
             self.env["hr_timesheet_sheet.sheet"]
         employees = self._get_employee()
         for employee in employees:
-            obj_hr_timesheet_sheet.create(
-                self._prapare_timesheet_create(employee)
-            )
+            tz = employee.user_id.tz
+            date_start = datetime.now(timezone(tz))
+            if self._compute_timesheet_creation_condition(
+                    employee, date_start):
+                obj_hr_timesheet_sheet.create(
+                    self._prepare_timesheet_create(employee, date_start)
+                )
 
     @api.multi
-    def _prapare_timesheet_create(self, employee):
+    def _prepare_timesheet_create(self, employee, date_start):
         self.ensure_one()
-        tz = employee.user_id.tz
-        date_start = datetime.now(timezone(tz))
         return {
             "date_from": date_start,
             "date_to": self._compute_date_end(employee, date_start),
@@ -95,6 +105,19 @@ class HrWorkingSchedulePolicy(models.Model):
             result = localdict["result"]
         except:  # noqa: E722
             raise UserError(_("Error in date to computation"))
+        return result
+
+    @api.multi
+    def _compute_timesheet_creation_condition(self, employee, date_from):
+        self.ensure_one()
+        result = 0.0
+        localdict = self._get_localdict(employee, date_from)
+        try:
+            eval(self.condition_python_code,
+                 localdict, mode="exec", nocopy=True)
+            result = localdict["result"]
+        except:  # noqa: E722
+            raise UserError(_("Error in timesheet creation condition"))
         return result
 
     @api.multi

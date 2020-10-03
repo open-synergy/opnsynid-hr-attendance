@@ -15,6 +15,7 @@
                         <page name="timesheet_generation" string="Timesheet Generation">
                             <group name="timesheet_generation_1" colspan="4" col="2">
                                 <field name="cron_id"/>
+                                <field name="condition_python_code"/>
                                 <field name="timesheet_period_computation_method"/>
                                 <field name="python_code"/>
                             </group>
@@ -23,7 +24,7 @@
                     <xpath expr="//header" position="inside">
                         <button name="action_generate_timesheet" type="object" string="Generate Timesheet"/>
                         <button name="action_create_cron" type="object" string="Create Cron" attrs="{'invisible':[('cron_id','!=',False)]}"/>
-                        <button name="action_delete_cron" type="object" string="Delete Cron" attrs="{'invisible':[('cron_id','=',False)]}"/>                        
+                        <button name="action_delete_cron" type="object" string="Delete Cron" attrs="{'invisible':[('cron_id','=',False)]}"/>
                     </xpath>
 
                 </data>
