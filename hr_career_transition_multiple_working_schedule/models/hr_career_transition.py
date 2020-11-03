@@ -97,6 +97,7 @@ class HrCareerTransition(models.Model):
         _super = super(HrCareerTransition, self)
         result = _super._prepare_contract_update()
         self.previous_contract_id.working_schedule_ids.unlink()
+        working_schedule_ids = []
         for schedule in self.new_multiple_working_schedule_ids:
             working_schedule_policy_id = \
                 schedule.working_schedule_policy_id.id
