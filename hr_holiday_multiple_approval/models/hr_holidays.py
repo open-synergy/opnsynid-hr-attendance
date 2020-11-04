@@ -72,7 +72,8 @@ class HrHolidays(models.Model):
         _super = super(HrHolidays, self)
         _super.validate_tier()
         for document in self:
-            document.action_validate()
+            if document.validated:
+                document.action_validate()
 
     @api.multi
     def restart_validation(self):
