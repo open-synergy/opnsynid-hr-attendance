@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<openerp>
+<data>
+    <!--  HR Leave Request-->
+    <record id="dashboard_tile_all_hr_leave_request_draft" model="tile.tile">
+        <field name="name">All Leave Request: Draft</field>
+        <field name="domain">
+        [
+            ("type", "=", "remove"),
+            ("state", "=", "draft"),
+        ]
+        </field>
+        <field name="model_id" search="[('model','=','hr.holidays')]" />
+        <field name="action_id" ref="hr_holidays.open_ask_holidays" />
+        <field name="primary_function">count</field>
+    </record>
+    <record id="dashboard_tile_all_hr_leave_request_confirm" model="tile.tile">
+        <field name="name">All Leave Request: Waiting For Approval</field>
+        <field name="domain">
+        [
+            ("type", "=", "remove"),
+            ("state", "=", "confirm"),
+        ]
+        </field>
+        <field name="model_id" search="[('model','=','hr.holidays')]" />
+        <field name="action_id" ref="hr_holidays.open_ask_holidays" />
+        <field name="primary_function">count</field>
+    </record>
+
+    <!--  HR Leave Allocation Request-->
+    <record id="dashboard_tile_all_hr_leave_alloc_req_draft" model="tile.tile">
+        <field name="name">All Leave Allocation Request: Draft</field>
+        <field name="domain">
+        [
+            ("type", "=", "add"),
+            ("state", "=", "draft"),
+        ]
+        </field>
+        <field name="model_id" search="[('model','=','hr.holidays')]" />
+        <field name="action_id" ref="hr_holidays.open_allocation_holidays" />
+        <field name="primary_function">count</field>
+    </record>
+    <record id="dashboard_tile_all_hr_leave_alloc_req_confirm" model="tile.tile">
+        <field name="name">All Leave Allocation Request: Waiting For Approval</field>
+        <field name="domain">
+        [
+            ("type", "=", "add"),
+            ("state", "=", "confirm"),
+        ]
+        </field>
+        <field name="model_id" search="[('model','=','hr.holidays')]" />
+        <field name="action_id" ref="hr_holidays.open_allocation_holidays" />
+        <field name="primary_function">count</field>
+    </record>
+</data>
+</openerp>
