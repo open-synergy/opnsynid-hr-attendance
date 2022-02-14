@@ -2,7 +2,7 @@
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from openerp import models, fields, api
+from openerp import api, fields, models
 
 
 class HrCareerTransition(models.Model):
@@ -33,24 +33,24 @@ class HrCareerTransition(models.Model):
     def _get_value_before_onchange_previous_contract(self):
         _super = super(HrCareerTransition, self)
         result = _super._get_value_before_onchange_previous_contract()
-        result.update({
-            "new_multiple_working_schedule_ids": [],
-            "previous_multiple_working_schedule_ids": [],
-        })
+        result.update(
+            {
+                "new_multiple_working_schedule_ids": [],
+                "previous_multiple_working_schedule_ids": [],
+            }
+        )
         return result
 
     @api.multi
-    def _get_value_after_onchange_previous_contract(
-            self, previous_contract):
+    def _get_value_after_onchange_previous_contract(self, previous_contract):
         _super = super(HrCareerTransition, self)
-        result = _super._get_value_after_onchange_previous_contract(
-            previous_contract)
-        result.update({
-            "new_multiple_working_schedule_ids": previous_contract.
-            _get_multiple_working_schedule_dict(),
-            "previous_multiple_working_schedule_ids": previous_contract.
-            _get_multiple_working_schedule_dict(),
-        })
+        result = _super._get_value_after_onchange_previous_contract(previous_contract)
+        result.update(
+            {
+                "new_multiple_working_schedule_ids": previous_contract._get_multiple_working_schedule_dict(),  # noqa: B950
+                "previous_multiple_working_schedule_ids": previous_contract._get_multiple_working_schedule_dict(),  # noqa: B950
+            }
+        )
         return result
 
     @api.multi
@@ -59,17 +59,23 @@ class HrCareerTransition(models.Model):
         result = _super._prepare_new_contract()
         working_schedule_ids = []
         for schedule in self.new_multiple_working_schedule_ids:
-            working_schedule_policy_id = \
-                schedule.working_schedule_policy_id.id
-            working_schedule_id = \
-                schedule.working_schedule_id.id
-            working_schedule_ids.append((0, 0, {
-                "working_schedule_policy_id": working_schedule_policy_id,
-                "working_schedule_id": working_schedule_id,
-            }))
-        result.update({
-            "working_schedule_ids": working_schedule_ids,
-        })
+            working_schedule_policy_id = schedule.working_schedule_policy_id.id
+            working_schedule_id = schedule.working_schedule_id.id
+            working_schedule_ids.append(
+                (
+                    0,
+                    0,
+                    {
+                        "working_schedule_policy_id": working_schedule_policy_id,
+                        "working_schedule_id": working_schedule_id,
+                    },
+                )
+            )
+        result.update(
+            {
+                "working_schedule_ids": working_schedule_ids,
+            }
+        )
         return result
 
     @api.multi
@@ -79,17 +85,23 @@ class HrCareerTransition(models.Model):
         self.previous_contract_id.working_schedule_ids.unlink()
         working_schedule_ids = []
         for schedule in self.previous_multiple_working_schedule_ids:
-            working_schedule_policy_id = \
-                schedule.working_schedule_policy_id.id
-            working_schedule_id = \
-                schedule.working_schedule_id.id
-            working_schedule_ids.append((0, 0, {
-                "working_schedule_policy_id": working_schedule_policy_id,
-                "working_schedule_id": working_schedule_id,
-            }))
-        result.update({
-            "working_schedule_ids": working_schedule_ids,
-        })
+            working_schedule_policy_id = schedule.working_schedule_policy_id.id
+            working_schedule_id = schedule.working_schedule_id.id
+            working_schedule_ids.append(
+                (
+                    0,
+                    0,
+                    {
+                        "working_schedule_policy_id": working_schedule_policy_id,
+                        "working_schedule_id": working_schedule_id,
+                    },
+                )
+            )
+        result.update(
+            {
+                "working_schedule_ids": working_schedule_ids,
+            }
+        )
         return result
 
     @api.multi
@@ -99,17 +111,23 @@ class HrCareerTransition(models.Model):
         self.previous_contract_id.working_schedule_ids.unlink()
         working_schedule_ids = []
         for schedule in self.new_multiple_working_schedule_ids:
-            working_schedule_policy_id = \
-                schedule.working_schedule_policy_id.id
-            working_schedule_id = \
-                schedule.working_schedule_id.id
-            working_schedule_ids.append((0, 0, {
-                "working_schedule_policy_id": working_schedule_policy_id,
-                "working_schedule_id": working_schedule_id,
-            }))
-        result.update({
-            "working_schedule_ids": working_schedule_ids,
-        })
+            working_schedule_policy_id = schedule.working_schedule_policy_id.id
+            working_schedule_id = schedule.working_schedule_id.id
+            working_schedule_ids.append(
+                (
+                    0,
+                    0,
+                    {
+                        "working_schedule_policy_id": working_schedule_policy_id,
+                        "working_schedule_id": working_schedule_id,
+                    },
+                )
+            )
+        result.update(
+            {
+                "working_schedule_ids": working_schedule_ids,
+            }
+        )
         return result
 
 
@@ -131,7 +149,7 @@ class HrCareerTransitionNewMultipleWorkingSchedule(models.Model):
     )
 
 
-class HrCareerTransitionNewMultipleWorkingSchedule(models.Model):
+class HrCareerTransitionPreviousMultipleWorkingSchedule(models.Model):
     _name = "hr.career_transition_previous_multiple_working_schedule"
     _description = "Career Transition Previous Multiple Working Schedule"
 

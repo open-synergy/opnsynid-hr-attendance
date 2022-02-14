@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 OpenSynergy Indonesia
      Copyright 2020 PT Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <openerp>
 <data>
     <!--  HR Timesheet Sheet -->
@@ -14,7 +13,7 @@
             ('state', '=', 'new'),
         ]
         </field>
-        <field name="model_id" search="[('model','=','hr_timesheet_sheet.sheet')]"/>
+        <field name="model_id" search="[('model','=','hr_timesheet_sheet.sheet')]" />
         <field name="action_id" ref="hr_timesheet_sheet.act_hr_timesheet_sheet_form" />
         <field name="primary_function">count</field>
         <field name="background_color">#776D8A</field>
@@ -27,12 +26,15 @@
             ('state', '=', 'draft'),
         ]
         </field>
-        <field name="model_id" search="[('model','=','hr_timesheet_sheet.sheet')]"/>
+        <field name="model_id" search="[('model','=','hr_timesheet_sheet.sheet')]" />
         <field name="action_id" ref="hr_timesheet_sheet.act_hr_timesheet_sheet_form" />
         <field name="primary_function">count</field>
         <field name="background_color">#776D8A</field>
     </record>
-    <record id="dashboard_tile_all_hr_timesheet_sheet_waiting_approval" model="tile.tile">
+    <record
+            id="dashboard_tile_all_hr_timesheet_sheet_waiting_approval"
+            model="tile.tile"
+        >
         <field name="name">All HR Timesheet Sheet: Waiting For Approval</field>
         <field name="sequence">30</field>
         <field name="domain">
@@ -40,7 +42,7 @@
             ('state', '=', 'confirm'),
         ]
         </field>
-        <field name="model_id" search="[('model','=','hr_timesheet_sheet.sheet')]"/>
+        <field name="model_id" search="[('model','=','hr_timesheet_sheet.sheet')]" />
         <field name="action_id" ref="hr_timesheet_sheet.act_hr_timesheet_sheet_form" />
         <field name="primary_function">count</field>
         <field name="background_color">#776D8A</field>

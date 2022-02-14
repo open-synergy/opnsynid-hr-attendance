@@ -2,13 +2,15 @@
 # Copyright 2018 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# pylint: disable=W0622
 
-from openerp import models, fields, api, _
+from datetime import datetime
+
+from dateutil import relativedelta
+from openerp import _, api, fields, models
 from openerp.exceptions import Warning as UserError
 from openerp.tools.safe_eval import safe_eval as eval
-from datetime import datetime
 from pytz import timezone
-from dateutil import relativedelta
 
 
 class HrWorkingSchedulePolicy(models.Model):
@@ -52,14 +54,12 @@ class HrWorkingSchedulePolicy(models.Model):
     @api.multi
     def _generate_timesheet(self):
         self.ensure_one()
-        obj_hr_timesheet_sheet =\
-            self.env["hr_timesheet_sheet.sheet"]
+        obj_hr_timesheet_sheet = self.env["hr_timesheet_sheet.sheet"]
         employees = self._get_employee()
         for employee in employees:
             tz = employee.user_id.tz
             date_start = datetime.now(timezone(tz))
-            if self._compute_timesheet_creation_condition(
-                    employee, date_start):
+            if self._compute_timesheet_creation_condition(employee, date_start):
                 obj_hr_timesheet_sheet.create(
                     self._prepare_timesheet_create(employee, date_start)
                 )
@@ -100,8 +100,7 @@ class HrWorkingSchedulePolicy(models.Model):
         result = 0.0
         localdict = self._get_localdict(employee, date_from)
         try:
-            eval(self.python_code,
-                 localdict, mode="exec", nocopy=True)
+            eval(self.python_code, localdict, mode="exec", nocopy=True)
             result = localdict["result"]
         except:  # noqa: E722
             raise UserError(_("Error in date to computation"))
@@ -113,8 +112,7 @@ class HrWorkingSchedulePolicy(models.Model):
         result = 0.0
         localdict = self._get_localdict(employee, date_from)
         try:
-            eval(self.condition_python_code,
-                 localdict, mode="exec", nocopy=True)
+            eval(self.condition_python_code, localdict, mode="exec", nocopy=True)
             result = localdict["result"]
         except:  # noqa: E722
             raise UserError(_("Error in timesheet creation condition"))
@@ -143,16 +141,17 @@ class HrWorkingSchedulePolicy(models.Model):
             strWarning = _("Cron already exist")
             raise UserError(strWarning)
 
-        obj_cron = self.env[
-            "ir.cron"]
+        obj_cron = self.env["ir.cron"]
         name = "Working Schedule Policy: %s" % self.name
         args = "[%s]" % (str(self.id))
-        cron = obj_cron.create({
-            "name": name,
-            "user_id": self.env.user.id,
-            "active": False,
-            "model": "hr.working_schedule_policy",
-            "function": "_cron_generate_timesheet",
-            "args": args,
-        })
+        cron = obj_cron.create(
+            {
+                "name": name,
+                "user_id": self.env.user.id,
+                "active": False,
+                "model": "hr.working_schedule_policy",
+                "function": "_cron_generate_timesheet",
+                "args": args,
+            }
+        )
         self.cron_id = cron
