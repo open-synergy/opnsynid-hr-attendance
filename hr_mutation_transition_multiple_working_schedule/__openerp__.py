@@ -16,8 +16,7 @@
         "hr_mutation_transition",
         "hr_career_transition_multiple_working_schedule",
     ],
-    "data": [
-    ],
+    "data": [],
     "images": [
         "static/description/banner.png",
     ],

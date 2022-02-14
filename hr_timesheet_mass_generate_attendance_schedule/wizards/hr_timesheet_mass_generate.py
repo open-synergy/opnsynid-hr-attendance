@@ -2,7 +2,7 @@
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from openerp import models, fields, api
+from openerp import api, fields, models
 
 
 class HrTimesheetMassGenerate(models.TransientModel):
@@ -18,7 +18,8 @@ class HrTimesheetMassGenerate(models.TransientModel):
         _super = super(HrTimesheetMassGenerate, self)
         res = _super._prepare_data_timesheet(employee)
 
-        res["working_schedule_id"] = \
+        res["working_schedule_id"] = (
             self.working_schedule_id and self.working_schedule_id.id or False
+        )
 
         return res

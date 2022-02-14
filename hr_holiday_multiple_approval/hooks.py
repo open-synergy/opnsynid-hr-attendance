@@ -7,11 +7,9 @@ from openerp import SUPERUSER_ID
 
 def set_double_validation_false(cr, registry):
     obj_hr_holidays_status = registry["hr.holidays.status"]
-    criteria = [
-        ("double_validation", "=", True)
-    ]
-    status_ids = \
-        obj_hr_holidays_status.search(cr, SUPERUSER_ID, criteria)
+    criteria = [("double_validation", "=", True)]
+    status_ids = obj_hr_holidays_status.search(cr, SUPERUSER_ID, criteria)
     if status_ids:
         obj_hr_holidays_status.write(
-            cr, SUPERUSER_ID, status_ids, {"double_validation": False})
+            cr, SUPERUSER_ID, status_ids, {"double_validation": False}
+        )

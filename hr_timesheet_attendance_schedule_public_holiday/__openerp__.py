@@ -15,8 +15,7 @@
         "hr_timesheet_attendance_schedule",
         "base_public_holiday",
     ],
-    "data": [
-    ],
+    "data": [],
     "images": [
         "static/description/banner.png",
     ],

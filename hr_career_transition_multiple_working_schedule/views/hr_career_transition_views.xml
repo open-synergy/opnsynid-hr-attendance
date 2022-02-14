@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <!-- Copyright 2020 OpenSynergy Indonesia
      Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
@@ -7,26 +7,36 @@
     <record id="hr_career_transition_view_form" model="ir.ui.view">
         <field name="name">hr.career_transition form</field>
         <field name="model">hr.career_transition</field>
-        <field name="inherit_id" ref="hr_career_transition.hr_career_transition_view_form"/>
+        <field
+                name="inherit_id"
+                ref="hr_career_transition.hr_career_transition_view_form"
+            />
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//field[@name='new_working_hour_id']" position="after">
-                    <field name="previous_multiple_working_schedule_ids" string="Multiple Working Schedule" readonly="1">
+                    <field
+                            name="previous_multiple_working_schedule_ids"
+                            string="Multiple Working Schedule"
+                            readonly="1"
+                        >
                         <tree>
-                            <field name="working_schedule_policy_id"/>
-                            <field name="working_schedule_id"/>
+                            <field name="working_schedule_policy_id" />
+                            <field name="working_schedule_id" />
                         </tree>
                     </field>
-                    <field name="new_multiple_working_schedule_ids" nolabel="1"
-                        attrs="{'readonly':[('change_multiple_working_schedule','=',False)]}">
+                    <field
+                            name="new_multiple_working_schedule_ids"
+                            nolabel="1"
+                            attrs="{'readonly':[('change_multiple_working_schedule','=',False)]}"
+                        >
                         <tree editable="top">
-                            <field name="working_schedule_policy_id"/>
-                            <field name="working_schedule_id"/>
+                            <field name="working_schedule_policy_id" />
+                            <field name="working_schedule_id" />
                         </tree>
                     </field>
                 </xpath>
                 <xpath expr="//group[@name='group_policy_1']" position="inside">
-                    <field name="change_multiple_working_schedule"/>
+                    <field name="change_multiple_working_schedule" />
                 </xpath>
             </data>
         </field>

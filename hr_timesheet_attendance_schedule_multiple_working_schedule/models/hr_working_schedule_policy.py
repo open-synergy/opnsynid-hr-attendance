@@ -3,7 +3,7 @@
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api
+from openerp import api, models
 
 
 class HrWorkingSchedulePolicy(models.Model):
@@ -20,7 +20,9 @@ class HrWorkingSchedulePolicy(models.Model):
             ("working_schedule_policy_id", "=", self.id),
         ]
         schedules = obj_schedule.search(criteria)
-        result.update({
-            "working_schedule_id": schedules[0].working_schedule_id.id,
-        })
+        result.update(
+            {
+                "working_schedule_id": schedules[0].working_schedule_id.id,
+            }
+        )
         return result
