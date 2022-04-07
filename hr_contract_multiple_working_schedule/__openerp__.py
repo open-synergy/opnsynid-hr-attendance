@@ -5,7 +5,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Contract Multiple Working Schedule",
-    "version": "8.0.2.0.0",
+    "version": "8.0.2.1.0",
     "category": "Human Resource",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
