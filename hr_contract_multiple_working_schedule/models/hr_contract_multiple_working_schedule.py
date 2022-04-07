@@ -14,6 +14,7 @@ class HrContractMultipleWorkingSchedule(models.Model):
         string="# Employee Contract",
         comodel_name="hr.contract",
         required=True,
+        ondelete="cascade",
     )
     working_schedule_policy_id = fields.Many2one(
         string="Working Schedule Policy",
